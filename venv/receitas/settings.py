@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'receitas_app', # registrando o app receitas_app no projeto receitas
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
