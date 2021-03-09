@@ -9,4 +9,3 @@ class Receita(models.Model):
     rendimento          = models.CharField(max_length=100)
     categoria           = models.CharField(max_length=100)
     data_receita        = models.DateField(defaut=datetime.now, blank=True)
-    
