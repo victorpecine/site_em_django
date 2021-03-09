@@ -3,3 +3,5 @@ site_receitas/.DS_Store
 *.pyc
 *.pyc
 *.pyc
+venv/Lib/site-packages/pip/__pycache__/__init__.cpython-39.pyc
+*.pyc
