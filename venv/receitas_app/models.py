@@ -8,4 +8,4 @@ class Receita(models.Model):
     tempo_de_preparo    = models.IntegerField()
     rendimento          = models.CharField(max_length=100)
     categoria           = models.CharField(max_length=100)
-    data_receita        = models.DateField(defaut=datetime.now, blank=True)
+    data_receita        = models.DateField(default=datetime.now, blank=True)

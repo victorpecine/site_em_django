@@ -66,12 +66,12 @@ WSGI_APPLICATION = 'receitas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.mysql',
-        'NAME':     'bd_django',
+        'NAME':     'django_receitas',
         'USER':     'root',
         'PASSWORD': 'root',
         'HOST':     'localhost',   # Or an IP Address that your DB is hosted on
         'PORT':     '3306',
-        'DATABASE': 'django_receitas'
+        'DATABASE': 'bd_django'
     }
 }
 
