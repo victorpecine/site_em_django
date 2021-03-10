@@ -6,3 +6,5 @@ site_receitas/.DS_Store
 venv/Lib/site-packages/pip/__pycache__/__init__.cpython-39.pyc
 *.pyc
 *.pyc
+*.xml
+*.iml
