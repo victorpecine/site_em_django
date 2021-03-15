@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Receita
 
 def index(request):
-    receitas = Receita.objects.filter(receita_publicada=True)
+    # mostrando na página as receitas em ordem da mais nova para a mais antiga e apenas as publicadas
+    receitas = Receita.objects.order_by('-data_receita').filter(receita_publicada=True)
     dados = {'receitas': receitas}
     return render(request, 'index.html', dados)
 
