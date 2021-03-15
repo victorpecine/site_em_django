@@ -14,3 +14,6 @@ class Receita(models.Model):
     receita_publicada   = models.BooleanField(default=False)
     # imagens referenciadas pela data dia/mês/ano
     foto_receita        = models.ImageField(upload_to='fotos/%d/%m/%Y/', blank=True)
+
+    def __str__(self):
+        return self.nome_receita
