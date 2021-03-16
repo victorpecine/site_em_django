@@ -9,15 +9,21 @@ def cadastro(request):
         email = request.POST['email']
         senha = request.POST['password']
         senha2 = request.POST['password2']
-        if not nome.strip():
+        if campo_vazio(nome):
+            messages.error(request, 'O nome não pode ficar em branco')
             return redirect('cadastro')
-        if not email.strip():
+        if campo_vazio(email):
+            messages.error(request, 'O e-mail não pode ficar em branco')
             return redirect('cadastro')
-        if senha != senha2:
+        if senhas_nao_iguais(senha, senha2):
             messages.error(request, 'As senhas digitadas não são iguais')
             return redirect('cadastro')
         # verificando pelo e-mail se o usuário já está no banco de dados
         if User.objects.filter(email=email).exists():
+            messages.error(request, 'E-mail já cadastrado')
+            return redirect('cadastro')
+        if User.objects.filter(username=nome).exists():
+            messages.error(request, 'Nome já cadastrado')
             return redirect('cadastro')
         user = User.objects.create_user(username=nome, email=email, password=senha)
         user.save()
@@ -30,7 +36,8 @@ def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
-        if email == '' or senha == '':
+        if campo_vazio(email) or campo_vazio(senha):
+            messages.error(request, 'Os campos devem ser preenchidos')
             return redirect('login')
         if User.objects.filter(email=email).exists():
             # filtrando o username a partir do e-mail
@@ -82,3 +89,9 @@ def cria_receita(request):
         return redirect('dashboard')
     else:
         return render(request, 'usuarios/cria_receita.html')
+
+def campo_vazio(campo):
+    return not campo.strip()
+
+def senhas_nao_iguais(senha, senha2):
+    return senha != senha2
