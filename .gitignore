@@ -8,3 +8,4 @@ venv/Lib/site-packages/pip/__pycache__/__init__.cpython-39.pyc
 *.pyc
 *.xml
 *.iml
+*.zip
