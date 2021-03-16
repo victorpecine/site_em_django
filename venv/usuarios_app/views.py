@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
+# from django.contrib import auth
 
 def cadastro(request):
     if request.method == 'POST':
@@ -29,10 +30,26 @@ def cadastro(request):
         return render(request, 'usuarios/cadastro.html')
 
 def login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        senha = request.POST['senha']
+        if email == '' or senha == '':
+            print('O e-mail e a senha não podem ficar vazios')
+            return redirect('login')
+        print(email, senha)
+        if User.objects.filter(email=email).exists():
+            # filtrando o username a partir do e-mail
+            nome = User.objects.filter(email=email).values_list('username', flat=True).get()
+            user = auth.authenticate(request, username=nome, password=senha)
+            # fazendo a autenticação do usuário e senha
+            if user is not None:
+                auth.login(request, user)
+                print('Login realizado com sucesso')
+        return redirect('dashboard')
     return render(request, 'usuarios/login.html')
 
 def logout():
     pass
 
-def dashboard():
-    pass
+def dashboard(request):
+    return render(request, 'usuarios/dashboard.html')
