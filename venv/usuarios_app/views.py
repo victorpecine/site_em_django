@@ -48,8 +48,12 @@ def login(request):
         return redirect('dashboard')
     return render(request, 'usuarios/login.html')
 
-def logout():
-    pass
+def logout(request):
+    auth.logout(request)
+    return redirect('index')
 
 def dashboard(request):
-    return render(request, 'usuarios/dashboard.html')
+    if request.user.is_authenticated:
+        return render(request, 'usuarios/dashboard.html')
+    else:
+        return redirect('index')
