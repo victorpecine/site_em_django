@@ -105,3 +105,11 @@ STATICFILES_DIRS = [
 # Medias
 MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
 MEDIA_URL = '/media/'
+
+# Messages
+# danger e success baseado no bootsrap
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}

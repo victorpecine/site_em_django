@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User
+from django.contrib import auth, messages
 from receitas_app.models import Receita
 
 def cadastro(request):
@@ -9,22 +10,18 @@ def cadastro(request):
         senha = request.POST['password']
         senha2 = request.POST['password2']
         if not nome.strip():
-            print('O campo nome não pode ficar me branco')
             return redirect('cadastro')
         if not email.strip():
-            print('O campo e-mail não pode ficar me branco')
             return redirect('cadastro')
         if senha != senha2:
-            print('As senhas digitadas não são iguais')
+            messages.error(request, 'As senhas digitadas não são iguais')
             return redirect('cadastro')
         # verificando pelo e-mail se o usuário já está no banco de dados
         if User.objects.filter(email=email).exists():
-            print('Usuário já cadastrado')
             return redirect('cadastro')
         user = User.objects.create_user(username=nome, email=email, password=senha)
         user.save()
-        print('Usuário cadastrado com sucesso')
-        print(nome, email, senha, senha2)
+        messages.success(request, 'Usuário cadastrado com sucesso')
         return redirect('login')
     else:
         return render(request, 'usuarios/cadastro.html')
@@ -34,9 +31,7 @@ def login(request):
         email = request.POST['email']
         senha = request.POST['senha']
         if email == '' or senha == '':
-            print('O e-mail e a senha não podem ficar vazios')
             return redirect('login')
-        print(email, senha)
         if User.objects.filter(email=email).exists():
             # filtrando o username a partir do e-mail
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
