@@ -2,13 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect
 from receitas_app.models import Receita
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
     # mostrando na página as receitas em ordem da mais nova para a mais antiga e apenas
     # as publicadas
     receitas = Receita.objects.order_by('-data_receita').filter(receita_publicada=True)
-    dados = {'receitas': receitas}
+    paginator = Paginator(receitas, 5)  # receitas por página
+    page = request.GET.get('page')  # identificação da página da navegação
+    receitas_por_pagina = paginator.get_page(page)
+    dados = {'receitas': receitas_por_pagina}
     return render(request, 'receitas/index.html', dados)
 
 

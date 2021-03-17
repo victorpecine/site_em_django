@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import auth, messages
 from receitas_app.models import Receita
+from django.contrib.auth.models import User
 
 
 def cadastro(request):
