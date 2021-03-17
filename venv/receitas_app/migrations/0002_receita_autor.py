@@ -2,12 +2,12 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pessoas_app', '0002_auto_20210315_1619'),
         ('receitas_app', '0001_initial'),
     ]
 
@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='receita',
             name='autor',
-            field=models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, to='pessoas_app.pessoa'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
             preserve_default=False,
         ),
     ]
