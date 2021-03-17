@@ -1,5 +1,6 @@
-from pathlib import Path, os
+from pathlib import Path, os, sys
 import mysql.connector
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -107,8 +108,10 @@ MEDIA_URL = '/media/'
 
 # Messages
 # danger e success baseado no bootsrap
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
+
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, '../apps'))

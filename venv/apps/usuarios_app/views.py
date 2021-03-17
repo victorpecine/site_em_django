@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 def cadastro(request):
+    """Cadastra um novo usuário no sistema"""
     if request.method == 'POST':
         nome = request.POST['nome']
         email = request.POST['email']
@@ -35,6 +36,7 @@ def cadastro(request):
 
 
 def login(request):
+    """Faz o login do usuário no sistema"""
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
@@ -54,11 +56,13 @@ def login(request):
 
 
 def logout(request):
+    """Faz o logout do usuário no sistema"""
     auth.logout(request)
     return redirect('index')
 
 
 def dashboard(request):
+    """Abre o dashboard do usuário logado"""
     if request.user.is_authenticated:
         id = request.user.id
         # mostrando apenas as receitas do autor(user) filtradas pelo id
@@ -71,8 +75,10 @@ def dashboard(request):
 
 
 def campo_vazio(campo):
+    """Valida se há algum campo vazio"""
     return not campo.strip()
 
 
 def senhas_nao_iguais(senha, senha2):
+    """Verifica se as senhas digitadas não são iguais"""
     return senha != senha2

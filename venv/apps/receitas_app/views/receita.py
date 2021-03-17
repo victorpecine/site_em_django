@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
+    """Mostra as receitas publicadas na página inicial"""
     # mostrando na página as receitas em ordem da mais nova para a mais antiga e apenas
     # as publicadas
     receitas = Receita.objects.order_by('-data_receita').filter(receita_publicada=True)
@@ -17,12 +18,14 @@ def index(request):
 
 
 def receita(request, receita_id):
+    """Abre uma receita para visualização"""
     receita = get_object_or_404(Receita, pk=receita_id)  # obtendo a receita a partir do index no BD
     receita_a_exibir = {'receita': receita}
     return render(request, 'receitas/receita.html', receita_a_exibir)
 
 
 def cria_receita(request):
+    """Usuário cria uma nova receita"""
     if request.method == 'POST':
         nome_receita = request.POST['nome_receita']
         ingredientes = request.POST['ingredientes']
@@ -49,6 +52,7 @@ def cria_receita(request):
 
 
 def deleta_receita(request, receita_id):
+    """Usuário deleta uma receita"""
     # recebendo o id do objeto receita
     receita = get_object_or_404(Receita, pk=receita_id)
     receita.delete()
@@ -56,6 +60,7 @@ def deleta_receita(request, receita_id):
 
 
 def edita_receita(request, receita_id):
+    """Usuário edita uma receita"""
     # recebendo o id do objeto receita
     receita = get_object_or_404(Receita, pk=receita_id)
     receita_a_editar = {'receita': receita}
@@ -63,6 +68,7 @@ def edita_receita(request, receita_id):
 
 
 def atualiza_receita(request):
+    """Salva uma receita atualizda pelo usuário"""
     if request.method == 'POST':
         receita_id = request.POST['receita_id']
         # buscando o id da receita
